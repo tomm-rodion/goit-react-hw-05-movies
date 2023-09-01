@@ -1,43 +1,18 @@
-// import { useState, useEffect } from 'react';
-// import { useSearchParams } from 'react-router-dom';
-// import { fetchSearchMovies } from 'services/api';
+import { NavLink } from 'react-router-dom';
 
-// const Movies = () => {
-//   const [query, setQuery] = useState('');
-//   const [searchParams, setSearchParams] = useSearchParams();
+const Movies = () => {
+  return (
+    <>
+      <div>Page Movies</div>
+      <div>
+        <ul>
+          <li>
+            <NavLink to={'movies/:moviesId'}>MoviesDetalies</NavLink>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
 
-//   useEffect(() => {
-//     const searchQuery = searchParams.get('query');
-//     fetchSearchMovies(searchQuery).then(data => {
-//       console.log(data);
-//     });
-//     console.log(searchParams);
-//   }, [searchParams]);
-
-//   const handleChange = e => {
-//     setQuery(e.target.value);
-//   };
-//   const handleSubmitForm = e => {
-//     e.preventDefault();
-//     setSearchParams({ query });
-//   };
-//   return (
-//     <>
-//       <h2>Search</h2>
-//       <div>
-//         <form onSubmit={handleSubmitForm}>
-//           <button type="submit">Search</button>
-//           <input
-//             type="text"
-//             autoComplete="off"
-//             autoFocus
-//             placeholder="Search..."
-//             onChange={handleChange}
-//           />
-//         </form>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Movies;
+export default Movies;
