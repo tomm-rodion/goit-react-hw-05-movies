@@ -1,5 +1,5 @@
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMoviesById } from 'services/api';
 
