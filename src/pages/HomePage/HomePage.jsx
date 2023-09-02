@@ -7,13 +7,14 @@ const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  //запит на список трендових фільмів
+  //отриманий масив даних передаємо в сомпонент MoviesList !!!
   useEffect(() => {
     async function fetchMovies() {
       setIsLoading(true);
       try {
-        const data = await fetchTrendingMovies();
-        console.log(data.results);
-        setTrendingMovies(data.results);
+        const resp = await fetchTrendingMovies();
+        setTrendingMovies(resp.results);
       } catch {
         console.error(Error);
       } finally {
@@ -27,7 +28,7 @@ const HomePage = () => {
     <main>
       <h1>Trending today</h1>
       {isLoading && <Loader />}
-      <MoviesList trendingMovies={trendingMovies} />
+      <MoviesList movies={trendingMovies} />
     </main>
   );
 };
