@@ -5,6 +5,8 @@ import { fetchMoviesById } from 'services/api';
 
 const MoviesDetailes = () => {
   const [movie, setMovie] = useState();
+  const [releaseMovies, setReleaseMovies] = useState();
+
   const [error, setError] = useState(false);
   const { moviesId } = useParams(); // '335977' modies id
   console.log(moviesId);
@@ -18,6 +20,7 @@ const MoviesDetailes = () => {
         const respInformationAboutMovie = await fetchMoviesById(moviesId);
         console.log('MoviesDetailes:', respInformationAboutMovie);
         setMovie(respInformationAboutMovie);
+        setReleaseMovies(respInformationAboutMovie.release_date.substr(0, [4]));
       } catch (error) {
         console.error(error);
         setError(true);
@@ -25,10 +28,6 @@ const MoviesDetailes = () => {
     }
     fetchMovies();
   }, [moviesId]);
-
-  const yarsMovie = useMemo(() => {
-    movie.release_date.substr(0, [4]);
-  }, [movie]);
 
   return (
     <>
@@ -38,7 +37,7 @@ const MoviesDetailes = () => {
         <div>
           <h2>
             {movie.original_title}
-            <span> ({yarsMovie})</span>
+            <span> ({releaseMovies})</span>
           </h2>
           <img src={movie.backdrop_path} alt={movie.original_title} />
         </div>
