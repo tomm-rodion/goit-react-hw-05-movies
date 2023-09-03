@@ -4,9 +4,9 @@ import SharedLayout from './SharedLayout/SharedLayout';
 import HomePage from 'pages/HomePage/HomePage';
 import Movies from 'pages/Movies/Movies';
 import ErrorMessage from './ErrorMessages/ErrorMessages';
-import { Cast } from './Cast/Cast';
 import MoviesDetailes from 'pages/MovieDetails/MovieDetails';
 import { Reviews } from './Reviews/Reviews';
+import Cast from './Cast/Cast';
 
 export const App = () => {
   return (

@@ -15,8 +15,8 @@ const HomePage = () => {
       try {
         const resp = await fetchTrendingMovies();
         setTrendingMovies(resp.results);
-      } catch {
-        console.error(Error);
+      } catch (error) {
+        console.error(error);
       } finally {
         setIsLoading(false);
       }

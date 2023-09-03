@@ -17,4 +17,8 @@ export async function fetchTrendingMovies() {
   return resp.data;
 }
 
-//search/movie?api_key=${API_KEY}&language=en-US&query=${moviesId}&page=1&include_adult=false`
+export async function fetchCastMovie(movieId) {
+  const resp = await axios.get(`/movie/${movieId}/credits`);
+
+  return resp.data;
+}

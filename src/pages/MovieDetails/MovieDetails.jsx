@@ -1,17 +1,16 @@
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { fetchMoviesById } from 'services/api';
 
 const MoviesDetailes = () => {
   const [movie, setMovie] = useState();
   const [releaseMovies, setReleaseMovies] = useState();
+  const location = useLocation();
+  const prevPage = location.state?.from ?? '/';
 
   const [error, setError] = useState(false);
   const { moviesId } = useParams(); // '335977' modies id
-  console.log(moviesId);
-
-  console.log(movie);
 
   // Запит за більш детальною інформацією про фільм BY ID !!!
   useEffect(() => {
@@ -35,16 +34,44 @@ const MoviesDetailes = () => {
       <div>Hi i`m component MoviesDetailes 😉</div>
       {movie && (
         <div>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            alt="Poster movie"
+            width={'300px'}
+          />
           <h2>
             {movie.original_title}
             <span> ({releaseMovies})</span>
           </h2>
-          <img src={movie.backdrop_path} alt={movie.original_title} />
+          <p>User Score: {movie.vote_average}</p>
+          <h3>Overview</h3>
+          <p>{movie.overview}</p>
+          <h3>Genres</h3>
+          <ul>
+            {movie.genres.map(({ name }, index) => {
+              return <li key={index}>{name}</li>;
+            })}
+          </ul>
+        </div>
+      )}
+      {movie && (
+        <div>
+          <h3>Additional information</h3>
+          <ul>
+            <li>
+              <NavLink to="cast" state={{ from: prevPage }}>
+                Cast
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="reviews" state={{ from: prevPage }}>
+                Reviews
+              </NavLink>
+            </li>
+          </ul>
         </div>
       )}
     </>
   );
 };
 export default MoviesDetailes;
-
-//???  <span>({yarsMovie.length === 4 && yarsMovie})</span>
