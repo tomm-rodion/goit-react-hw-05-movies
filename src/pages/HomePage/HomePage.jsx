@@ -34,26 +34,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-useEffect(() => {
-  async function fetchMovies(movieId) {
-    setIsLoading(true);
-    try {
-      const resp = await fetchMovie();
-      setTrendingMovies(resp.results);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-  fetchMovies();
-}, [movieId]);
-//&&
-useEffect(() => {
-  setLoading(true);
-  fetchMovies(movieId)
-    .then(({ data }) => setMovie(data.data))
-    .catch(err => setError(err.message))
-    .finally(() => setLoading(false));
-}, [movieId]);
