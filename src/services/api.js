@@ -18,7 +18,7 @@ export async function fetchTrendingMovies() {
 }
 
 export async function fetchCastMovie(movieId) {
-  const resp = await axios.get(`/movie/${movieId}/credits`);
+  const resp = await axios.get(`movie/${movieId}/credits?api_key=${API_KEY}`);
 
   return resp.data;
 }

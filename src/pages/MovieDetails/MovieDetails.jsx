@@ -1,16 +1,15 @@
-import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
+import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { fetchMoviesById } from 'services/api';
 
 const MoviesDetailes = () => {
-  const [movie, setMovie] = useState();
-  const [releaseMovies, setReleaseMovies] = useState();
+  const { moviesId } = useParams(); // '335977'
+  const [movie, setMovie] = useState(null);
+  const [releaseMovies, setReleaseMovies] = useState(null);
+  const [error, setError] = useState(false);
   const location = useLocation();
   const prevPage = location.state?.from ?? '/';
-
-  const [error, setError] = useState(false);
-  const { moviesId } = useParams(); // '335977' modies id
 
   // Запит за більш детальною інформацією про фільм BY ID !!!
   useEffect(() => {
@@ -54,17 +53,18 @@ const MoviesDetailes = () => {
           </ul>
         </div>
       )}
+      <Outlet />
       {movie && (
         <div>
           <h3>Additional information</h3>
           <ul>
             <li>
-              <NavLink to="cast" state={{ from: prevPage }}>
+              <NavLink to="/cast" state={{ from: prevPage }}>
                 Cast
               </NavLink>
             </li>
             <li>
-              <NavLink to="reviews" state={{ from: prevPage }}>
+              <NavLink to="/reviews" state={{ from: prevPage }}>
                 Reviews
               </NavLink>
             </li>
