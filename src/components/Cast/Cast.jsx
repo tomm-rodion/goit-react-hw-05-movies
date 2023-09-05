@@ -1,58 +1,42 @@
 /* eslint-disable array-callback-return */
+import CastItem from 'components/CastItem/CastItem';
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCastMovie } from 'services/api';
 
 const Cast = () => {
-  const [cast, setCast] = useState(null);
-  const { movieId } = useParams();
+  const [cast, setCast] = useState([]);
+  const { moviesId } = useParams();
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchCastInf() {
       try {
-        const respCast = await fetchCastMovie(movieId);
-        console.log('cast....', respCast.data.cast);
-        setCast(respCast.data.cast);
+        const respCast = await fetchCastMovie(moviesId);
+        console.log('cast....', respCast.cast);
+        setCast(respCast.cast);
       } catch (error) {
         console.error(error);
         setError(true);
       }
     }
     fetchCastInf();
-  }, [movieId]);
+  }, [moviesId]);
 
   return (
     <>
-      <div>Hi i`m component Cast 😉</div>
-
       {error && <ErrorMessage />}
-      <ul>
-        {cast &&
-          cast.map(({ profile_path, name, character }, index) => {
-            <li key={index}>
-              {profile_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-                  alt="Foto_profile"
-                  width={'300px'}
-                />
-              ) : (
-                <img
-                  src={`https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg`}
-                  alt="логотип Netflix "
-                  width={'300px'}
-                />
-              )}
-              <div>
-                <h3>{name}</h3>
-                <p>{character}</p>
-              </div>
-            </li>;
-          })}
-        ;
-      </ul>
+      {cast && (
+        <div>
+          <ul>
+            {cast.map((actorInf, index) => {
+              console.log(actorInf);
+              return <CastItem cast={actorInf} />;
+            })}
+          </ul>
+        </div>
+      )}
     </>
   );
 };

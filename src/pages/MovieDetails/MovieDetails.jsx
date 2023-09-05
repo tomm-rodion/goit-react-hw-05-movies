@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { fetchMoviesById } from 'services/api';
 
 const MoviesDetailes = () => {
-  const { moviesId } = useParams(); // '335977'
+  const { moviesId } = useParams();
   const [movie, setMovie] = useState(null);
   const [releaseMovies, setReleaseMovies] = useState(null);
   const [error, setError] = useState(false);
-  const location = useLocation();
-  const prevPage = location.state?.from ?? '/';
+  // const location = useLocation();
+  // const locationPrevPage = location.state?.from ?? '/';
 
   // Запит за більш детальною інформацією про фільм BY ID !!!
   useEffect(() => {
     async function fetchMovies() {
       try {
         const respInformationAboutMovie = await fetchMoviesById(moviesId);
-        console.log('MoviesDetailes:', respInformationAboutMovie);
         setMovie(respInformationAboutMovie);
         setReleaseMovies(respInformationAboutMovie.release_date.substr(0, [4]));
       } catch (error) {
@@ -53,25 +52,24 @@ const MoviesDetailes = () => {
           </ul>
         </div>
       )}
-      <Outlet />
+
       {movie && (
         <div>
           <h3>Additional information</h3>
           <ul>
             <li>
-              <NavLink to="/cast" state={{ from: prevPage }}>
-                Cast
-              </NavLink>
+              <NavLink to="cast">Cast</NavLink>
             </li>
             <li>
-              <NavLink to="/reviews" state={{ from: prevPage }}>
-                Reviews
-              </NavLink>
+              <NavLink to="reviews">Reviews</NavLink>
             </li>
           </ul>
         </div>
       )}
+      <Outlet />
     </>
   );
 };
 export default MoviesDetailes;
+
+//  state={{ from: locationPrevPage }}

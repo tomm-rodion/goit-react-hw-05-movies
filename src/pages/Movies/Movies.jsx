@@ -1,44 +1,39 @@
-import { useEffect, useState } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
-import { fetchMoviesById } from 'services/api';
+import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { fetchMoviesBySearch } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 
 const Movies = () => {
-  const [query, setQuery] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
 
   const [valueSearchMovies, setValueSearchMovies] = useState([]);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    if (query === '' || query === null) {
+    if (searchQuery === '' || searchQuery === null) {
       return;
     }
     async function searchMovies() {
       try {
-        const resp = await fetchMoviesById(searchQuery);
+        const resp = await fetchMoviesBySearch(searchQuery);
+        console.log(resp.results); //список знайдених фільмів по ключовому слову
         setValueSearchMovies(resp.results);
       } catch (error) {
         console.error(error);
       }
     }
     searchMovies();
-  }, [query, searchQuery]);
+  }, [searchQuery]);
 
-  function handleSubmitForm(e) {
+  const handleSubmitForm = e => {
     e.preventDefault();
-    const form = e.currentTarget;
-    setSearchParams({ query });
-    form.reset();
-  }
-
-  const handleChange = e => {
-    setQuery(e.target.value);
+    setSearchParams({ query: inputRef.current.value });
+    inputRef.current.value = '';
   };
 
   return (
     <>
-      <Outlet />
       <h2>Search movies</h2>
       <form onSubmit={handleSubmitForm}>
         <label name="searchMovies">
@@ -48,7 +43,7 @@ const Movies = () => {
             autoComplete="off"
             autoFocus
             placeholder="Search movies for name..."
-            onChange={handleChange}
+            ref={inputRef}
           />
         </label>
       </form>

@@ -5,7 +5,7 @@ import HomePage from 'pages/HomePage/HomePage';
 import Movies from 'pages/Movies/Movies';
 import ErrorMessage from './ErrorMessages/ErrorMessages';
 import MoviesDetailes from 'pages/MovieDetails/MovieDetails';
-import { Reviews } from './Reviews/Reviews';
+import Reviews from './Reviews/Reviews';
 import Cast from './Cast/Cast';
 
 export const App = () => {
