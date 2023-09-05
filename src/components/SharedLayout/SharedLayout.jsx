@@ -1,16 +1,21 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 const SharedLayout = () => {
+  const location = useLocation();
   return (
     <div>
       <header>
         <nav>
           <ul>
             <li>
-              <NavLink to="/">Home page</NavLink>
+              <NavLink to="/" state={{ from: location }}>
+                Home page
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/movies">Movies</NavLink>
+              <NavLink to="/movies" state={{ from: location }}>
+                Movies
+              </NavLink>
             </li>
           </ul>
         </nav>

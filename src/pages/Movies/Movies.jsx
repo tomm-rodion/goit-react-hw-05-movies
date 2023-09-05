@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import { fetchMoviesBySearch } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
-
   const [valueSearchMovies, setValueSearchMovies] = useState([]);
   const inputRef = useRef(null);
+  const location = useLocation();
+  const backLinkHref = location?.state?.from ?? '/';
 
   useEffect(() => {
     if (searchQuery === '' || searchQuery === null) {
@@ -17,7 +18,6 @@ const Movies = () => {
     async function searchMovies() {
       try {
         const resp = await fetchMoviesBySearch(searchQuery);
-        console.log(resp.results); //список знайдених фільмів по ключовому слову
         setValueSearchMovies(resp.results);
       } catch (error) {
         console.error(error);
@@ -34,6 +34,7 @@ const Movies = () => {
 
   return (
     <>
+      <NavLink to={backLinkHref}>Go back</NavLink>
       <h2>Search movies</h2>
       <form onSubmit={handleSubmitForm}>
         <label name="searchMovies">

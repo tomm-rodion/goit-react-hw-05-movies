@@ -13,7 +13,6 @@ const Reviews = () => {
     async function fetchCastInf() {
       try {
         const respReviews = await fetchReviwsMovie(moviesId);
-        console.log(respReviews.results);
         setReviews(respReviews.results);
       } catch (error) {
         console.error(error);

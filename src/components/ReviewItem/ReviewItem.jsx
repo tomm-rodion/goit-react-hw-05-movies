@@ -1,4 +1,4 @@
-const ReviewItem = ({ review: { author, content, id }, index }) => {
+const ReviewItem = ({ review: { author, content, id } }) => {
   return (
     <>
       <li key={id}>

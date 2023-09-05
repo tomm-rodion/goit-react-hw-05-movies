@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { fetchMoviesById } from 'services/api';
 
@@ -8,10 +8,8 @@ const MoviesDetailes = () => {
   const [movie, setMovie] = useState(null);
   const [releaseMovies, setReleaseMovies] = useState(null);
   const [error, setError] = useState(false);
-  // const location = useLocation();
-  // const locationPrevPage = location.state?.from ?? '/';
+  const location = useLocation();
 
-  // Запит за більш детальною інформацією про фільм BY ID !!!
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -26,31 +24,35 @@ const MoviesDetailes = () => {
     fetchMovies();
   }, [moviesId]);
 
+  const backLinkHref = location?.state?.from ?? '/';
+
   return (
     <>
       {error && <ErrorMessage />}
-      <div>Hi i`m component MoviesDetailes 😉</div>
       {movie && (
-        <div>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-            alt="Poster movie"
-            width={'300px'}
-          />
-          <h2>
-            {movie.original_title}
-            <span> ({releaseMovies})</span>
-          </h2>
-          <p>User Score: {movie.vote_average}</p>
-          <h3>Overview</h3>
-          <p>{movie.overview}</p>
-          <h3>Genres</h3>
-          <ul>
-            {movie.genres.map(({ name }, index) => {
-              return <li key={index}>{name}</li>;
-            })}
-          </ul>
-        </div>
+        <>
+          <NavLink to={backLinkHref}>Go back</NavLink>
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+              alt="Poster movie"
+              width={'300px'}
+            />
+            <h2>
+              {movie.original_title}
+              <span> ({releaseMovies})</span>
+            </h2>
+            <p>User Score: {movie.vote_average}</p>
+            <h3>Overview</h3>
+            <p>{movie.overview}</p>
+            <h3>Genres</h3>
+            <ul>
+              {movie.genres.map(({ name }, index) => {
+                return <li key={index}>{name}</li>;
+              })}
+            </ul>
+          </div>
+        </>
       )}
 
       {movie && (

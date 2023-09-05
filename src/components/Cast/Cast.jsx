@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import CastItem from 'components/CastItem/CastItem';
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { useEffect, useState } from 'react';
@@ -14,7 +13,6 @@ const Cast = () => {
     async function fetchCastInf() {
       try {
         const respCast = await fetchCastMovie(moviesId);
-        console.log('cast....', respCast.cast);
         setCast(respCast.cast);
       } catch (error) {
         console.error(error);
@@ -30,8 +28,7 @@ const Cast = () => {
       {cast && (
         <div>
           <ul>
-            {cast.map((actorInf, index) => {
-              console.log(actorInf);
+            {cast.map(actorInf => {
               return <CastItem cast={actorInf} />;
             })}
           </ul>
