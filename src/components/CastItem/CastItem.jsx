@@ -1,13 +1,12 @@
-const CastItem = ({
-  cast: { profile_path, name, character, cast_id },
-  index,
-}) => {
-  const defaultImgURL = `https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg`;
-  const getPoster = url => {
-    return profile_path
-      ? `https://image.tmdb.org/t/p/w500${url}`
-      : defaultImgURL;
-  };
+import getPoster from 'services/getDefaultImg';
+
+const CastItem = ({ cast: { profile_path, name, character }, index }) => {
+  // const defaultImgURL = `https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg`;
+  // const getPoster = url => {
+  //   return profile_path
+  //     ? `https://image.tmdb.org/t/p/w500${url}`
+  //     : defaultImgURL;
+  // };
   return (
     <li key={index}>
       <div>
