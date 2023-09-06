@@ -28,8 +28,8 @@ const Cast = () => {
       {cast && (
         <div>
           <ul>
-            {cast.map(actorInf => {
-              return <CastItem cast={actorInf} />;
+            {cast.map((actorInf, index) => {
+              return <CastItem cast={actorInf} index={index} />;
             })}
           </ul>
         </div>

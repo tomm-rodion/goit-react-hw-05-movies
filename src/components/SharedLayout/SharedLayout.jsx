@@ -1,4 +1,7 @@
+import { Suspense } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+
+import { Loader } from 'components/Loader/Loader';
 
 const SharedLayout = () => {
   const location = useLocation();
@@ -20,7 +23,15 @@ const SharedLayout = () => {
           </ul>
         </nav>
       </header>
-      <Outlet />
+      <Suspense
+        fallback={
+          <div>
+            <Loader />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

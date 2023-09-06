@@ -28,8 +28,8 @@ const Reviews = () => {
       {reviews && (
         <div>
           <ul>
-            {reviews.map(review => {
-              return <ReviewItem review={review} />;
+            {reviews.map((review, index) => {
+              return <ReviewItem review={review} index={index} />;
             })}
           </ul>
         </div>

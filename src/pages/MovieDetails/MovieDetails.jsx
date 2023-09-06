@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import ErrorMessage from 'components/ErrorMessages/ErrorMessages';
 import { fetchMoviesById } from 'services/api';
+import { Loader } from 'components/Loader/Loader';
 
 const MoviesDetailes = () => {
   const { moviesId } = useParams();
@@ -68,10 +69,17 @@ const MoviesDetailes = () => {
           </ul>
         </div>
       )}
-      <Outlet />
+      <Suspense
+        fallback={
+          <div>
+            Loading subpage...
+            <Loader />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
     </>
   );
 };
 export default MoviesDetailes;
-
-//  state={{ from: locationPrevPage }}

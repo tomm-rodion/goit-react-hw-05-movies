@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
 const MoviesList = ({ movies }) => {
-  // перебираємо масив і рендерим список трендових фільмив на сторінку HomePage!
   return (
     <div>
       <ul>
@@ -18,6 +17,3 @@ const MoviesList = ({ movies }) => {
 };
 
 export default MoviesList;
-//   const location = useLocation();
-//   console.log(location);
-//   <MoviesDetailes moviee={movie} location={location} key={movie.id} />
